@@ -76,8 +76,8 @@ BIAS_TERMS_DICT = {
     'query': 'attention.self.query.bias',
     'value': 'attention.self.value.bias',
     'output': 'output.dense.bias',
-    'output_layernorm': 'output.LayerNorm.bias',
-    'attention_layernorm': 'attention.output.LayerNorm.bias',
+    'output_layernorm': 'output.LayerNorm.bias', #g_LN_2 vector
+    'attention_layernorm': 'attention.output.LayerNorm.bias', #g_LN_1 vector
     'all': 'bias',
 }
 
@@ -267,7 +267,7 @@ class GLUEvaluator:
     def train_and_evaluate(self, num_epochs, output_path=None, evaluation_frequency=1):
         """Trains the encoder model and evaluate it on validation set.
 
-        Learning curves will be saved to the output_path.
+        Learning curves will be saved to the output_path. This produces Table 1 (?)
 
         Args:
             num_epochs (int): Number of epochs to perform.
@@ -619,7 +619,7 @@ class GLUEvaluator:
         for param in self.model.parameters():
             param.requires_grad = False
         if trainable_components:
-            trainable_components = trainable_components + ['pooler.dense.bias']
+            trainable_components = trainable_components + ['pooler.dense.bias'] + ['output.LayerNorm.weight'] + ['attention.output.LayerNorm.weight']
         trainable_components = trainable_components + ['classifier']
         for name, param in self.model.named_parameters():
             for component in trainable_components:
