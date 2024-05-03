@@ -620,7 +620,8 @@ class GLUEvaluator:
         for param in self.model.parameters():
             param.requires_grad = False
         if trainable_components:
-            trainable_components = trainable_components + ['pooler.dense.bias'] + ['output.LayerNorm.weight'] + ['attention.output.LayerNorm.weight']
+            trainable_components = trainable_components + ['pooler.dense.bias'] 
+            # trainable_components = trainable_components + ['pooler.dense.bias'] + ['output.LayerNorm.weight'] + ['attention.output.LayerNorm.weight']
         trainable_components = trainable_components + ['classifier']
         for name, param in self.model.named_parameters():
             for component in trainable_components:
