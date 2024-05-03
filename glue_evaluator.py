@@ -51,7 +51,8 @@ TASK_TO_KEYS = {
 }
 
 TASK_TO_METRICS = {
-    "cola": ["MCC"],
+    # "cola": ["MCC"],
+    "cola": ["Accuracy"],
     "mnli": ["Accuracy"],
     "mrpc": ["Accuracy", "F1"],
     "qnli": ["Accuracy"],
