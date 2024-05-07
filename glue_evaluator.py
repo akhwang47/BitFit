@@ -622,7 +622,9 @@ class GLUEvaluator:
         if trainable_components:
             trainable_components = trainable_components + ['pooler.dense.bias'] 
             # trainable_components = trainable_components + ['pooler.dense.bias'] + ['output.LayerNorm.weight'] + ['attention.output.LayerNorm.weight']
-        trainable_components = trainable_components + ['classifier']
+        # trainable_components = trainable_components + ['classifier'] 
+        trainable_components = trainable_components + ['classifier'] + ['output.LayerNorm.weight'] + ['attention.output.LayerNorm.weight']
+        # trainable_components = trainable_components + ['classifier'] + ['pooler.dense.bias'] + ['output.LayerNorm.weight'] + ['attention.output.LayerNorm.weight']
         for name, param in self.model.named_parameters():
             for component in trainable_components:
                 if component in name:
